@@ -61,61 +61,59 @@ button { font: inherit; cursor: pointer; }
 .card .name-ko { font-weight: 600; margin-top: 8px; }
 .card .name-en { color: var(--muted); font-size: .85rem; }
 
-.card { user-select: none; }
-.card:focus-visible { outline: 2px solid #222; outline-offset: 2px; }
+.card .badge { margin-top: 8px; }
+.card.selected { border: 2px solid #222; padding: 15px 7px 11px; background: #fafafa; }
 
-/* ⓘ 정보 버튼 */
-.info {
+/* 선택 표시 (오른쪽 위) */
+.check {
   position: absolute;
   top: 6px; right: 6px;
   width: 28px; height: 28px;
   border-radius: 50%;
-  border: 1.5px solid #999;
+  border: 1px solid #ccc;
+  background: #fff;
+  font-size: 1rem;
+  line-height: 26px;
+}
+.check.on { background: #222; color: #fff; border-color: #222; }
+
+/* 치료 순서 번호 (왼쪽 위) */
+.rank {
+  position: absolute;
+  top: 4px; left: 8px;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.info {
+  display: block;
+  margin: 10px auto 0;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
   background: #fff;
   color: #555;
-  font-family: Georgia, "Times New Roman", serif;
-  font-style: italic;
-  font-weight: 700;
-  font-size: .95rem;
-  line-height: 1;
-  padding: 0;
-}
-.info:hover { border-color: #222; color: #222; }
-
-/* 선택 체크 표시 */
-.check {
-  position: absolute;
-  top: 6px; left: 6px;
-  width: 24px; height: 24px;
-  border-radius: 50%;
-  background: #222;
-  color: #fff;
   font-size: .8rem;
-  display: flex; align-items: center; justify-content: center;
 }
+.info:hover { border-color: #999; color: #000; }
+
+.guide { color: var(--muted); font-size: .9rem; margin: 12px 0 0; }
+
+/* 메인 화면 치료 순서 */
+.quick-order {
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fcfcfc;
+}
+.quick-order h2 { margin: 0 0 12px; font-size: 1.1rem; }
+.quick-order .hint { color: var(--muted); font-size: .85rem; font-weight: 400; }
+.quick-order .group:last-child { margin-bottom: 0; }
+
+.load-error { grid-column: 1 / -1; color: var(--p1); text-align: center; }
 
 .empty { color: var(--muted); text-align: center; margin-top: 32px; }
-
-.load-error {
-  margin-top: 20px;
-  padding: 14px 16px;
-  border-radius: 10px;
-  background: #fff4f2;
-  color: #a1281d;
-  font-size: .9rem;
-}
-
-/* 카드 안 우선순위 표시 */
-.card .badge { margin-top: 6px; }
-.card.selected { border-color: #222; box-shadow: 0 0 0 1px #222; }
-.card .rank {
-  margin-top: 6px;
-  font-size: .85rem;
-  font-weight: 700;
-}
-.card .rank.p1t { color: var(--p1); }
-.card .rank.p2t { color: var(--p2); }
-.card .rank.p3t { color: #555; }
 
 /* 아이콘 */
 .icon {
@@ -239,74 +237,6 @@ button { font: inherit; cursor: pointer; }
   border: 1px solid #ccc;
   background: #fff;
 }
-
-/* 메인 화면의 바로 보이는 치료 순서 */
-.quick-order { margin-top: 28px; }
-.quick-order h2 { font-size: 1.1rem; margin: 0 0 10px; }
-
-/* 오른쪽 아래 + 버튼 */
-.fab {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  width: 56px; height: 56px;
-  border-radius: 50%;
-  border: none;
-  background: #222;
-  color: #fff;
-  font-size: 1.8rem;
-  line-height: 1;
-  box-shadow: 0 3px 10px rgba(0,0,0,.2);
-  z-index: 20;
-}
-.fab:hover { background: #000; }
-.fab[hidden] { display: none; }
-body.has-bar .fab { bottom: 84px; }
-
-/* 버튼 공통 */
-.btn.primary { background: #222; color: #fff; }
-.btn.danger { border-color: var(--p1); color: var(--p1); }
-.btn.small { margin-top: 0; padding: 4px 10px; font-size: .85rem; }
-.btn[hidden] { display: none; }
-.muted { color: var(--muted); }
-
-/* 내용 관리 화면 */
-.manage-list { list-style: none; padding: 0; margin: 16px 0 0; }
-.manage-item {
-  display: flex; align-items: center; gap: 8px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--line);
-}
-.manage-name { flex: 1; min-width: 0; }
-.manage-name small { color: var(--muted); }
-.manage-note {
-  margin-top: 24px;
-  padding: 14px 16px;
-  border-radius: 10px;
-  background: #f6f6f6;
-  font-size: .9rem;
-}
-.manage-note p { margin: 0; }
-.manage-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.manage-actions .btn { margin-top: 12px; }
-
-/* 입력 폼 */
-.form { display: flex; flex-direction: column; gap: 14px; }
-.form label { display: flex; flex-direction: column; gap: 4px; font-weight: 600; }
-.form small { font-weight: 400; color: var(--muted); }
-.form input, .form textarea {
-  font: inherit;
-  font-weight: 400;
-  padding: 10px 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  width: 100%;
-}
-.form textarea { resize: vertical; }
-.form input:focus, .form textarea:focus { outline: none; border-color: #888; }
-.form-error { margin: 0; color: var(--p1); }
-.form-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.form-actions .btn { margin-top: 8px; }
 
 /* 좁은 창 */
 @media (max-width: 420px) {
