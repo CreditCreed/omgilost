@@ -1,0 +1,226 @@
+* { box-sizing: border-box; }
+
+:root {
+  --text: #222;
+  --muted: #777;
+  --line: #e5e5e5;
+  --p1: #d93025;   /* 긴급 - 빨강 */
+  --p2: #e8710a;   /* 빠르게 - 주황 */
+  --p3: #888;      /* 여유 - 회색 */
+}
+
+body {
+  margin: 0;
+  background: #fff;
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 16px 96px;
+}
+
+button { font: inherit; cursor: pointer; }
+
+/* 헤더 */
+.app-header h1 { margin: 0; font-size: 1.5rem; }
+.app-header .sub { margin: 2px 0 16px; color: var(--muted); font-size: .9rem; }
+
+/* 검색창 */
+.search {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  outline: none;
+}
+.search:focus { border-color: #888; }
+
+/* 아이콘 그리드 */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+.card {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 8px 12px;
+  text-align: center;
+  background: #fff;
+  cursor: pointer;
+}
+.card:hover { border-color: #bbb; }
+.card .name-ko { font-weight: 600; margin-top: 8px; }
+.card .name-en { color: var(--muted); font-size: .85rem; }
+
+.add {
+  position: absolute;
+  top: 6px; right: 6px;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  background: #fff;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+.add.on { background: #222; color: #fff; border-color: #222; }
+
+.empty { color: var(--muted); text-align: center; margin-top: 32px; }
+
+.load-error {
+  margin-top: 20px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: #fff4f2;
+  color: #a1281d;
+  font-size: .9rem;
+}
+
+/* 카드 안 우선순위 표시 */
+.card .badge { margin-top: 6px; }
+.card.selected { border-color: #222; box-shadow: 0 0 0 1px #222; }
+.card .rank {
+  margin-top: 6px;
+  font-size: .85rem;
+  font-weight: 700;
+}
+.card .rank.p1t { color: var(--p1); }
+.card .rank.p2t { color: var(--p2); }
+.card .rank.p3t { color: #555; }
+
+/* 아이콘 */
+.icon {
+  width: 56px; height: 56px;
+  margin: 0 auto;
+  border-radius: 50%;
+  object-fit: contain;
+  display: block;
+}
+.icon.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ddd;
+  color: #555;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+.icon.big { width: 80px; height: 80px; margin: 0; font-size: 1.8rem; }
+
+/* 우선순위 배지 */
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: .8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.p1 { background: var(--p1); }
+.p2 { background: var(--p2); }
+.p3 { background: var(--p3); }
+
+/* 돌아가기 */
+.back {
+  border: none;
+  background: none;
+  padding: 4px 0;
+  color: #555;
+  margin-bottom: 12px;
+}
+.back:hover { color: #000; }
+
+/* 상세 화면 */
+.detail-head { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.detail-head h2 { margin: 0 0 4px; font-size: 1.4rem; }
+.detail h3 { margin: 24px 0 8px; font-size: 1.05rem; }
+.detail ul { margin: 0; padding-left: 20px; }
+.detail li { margin-bottom: 4px; }
+.btn {
+  margin-top: 24px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 1px solid #222;
+  background: #fff;
+}
+.btn.on { background: #222; color: #fff; }
+
+/* 치료 순서 */
+.order { list-style: none; padding: 0; margin: 0; }
+.group { margin-bottom: 16px; }
+.group-head {
+  display: flex; align-items: center; gap: 8px;
+  font-weight: 700; margin-bottom: 6px;
+}
+.num { font-size: 1.3rem; }
+.together { color: var(--muted); font-size: .85rem; font-weight: 400; }
+.order-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 12px 14px;
+  margin-bottom: 6px;
+  border: 1px solid var(--line);
+  border-left-width: 5px;
+  border-radius: 10px;
+  background: #fff;
+}
+.order-item:hover { border-color: #bbb; }
+.order-item.p1b { border-left-color: var(--p1); }
+.order-item.p2b { border-left-color: var(--p2); }
+.order-item.p3b { border-left-color: var(--p3); }
+.order-item .arrow { color: var(--muted); }
+
+/* 출처 */
+.source {
+  margin-top: 48px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: .8rem;
+  text-align: center;
+}
+
+/* 하단 고정 바 */
+.bar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding: 12px 16px;
+  background: #fff;
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -2px 8px rgba(0,0,0,.05);
+}
+.bar[hidden] { display: none; }
+.bar-open {
+  flex: 0 1 360px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  background: #222;
+  color: #fff;
+  font-weight: 600;
+}
+.bar-clear {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background: #fff;
+}
+
+/* 좁은 창 */
+@media (max-width: 420px) {
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .app-header h1 { font-size: 1.25rem; }
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>C:U 상태이상 응급 매뉴얼</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <!-- 메인 화면 (찾기) -->
+    <section id="view-main" class="view">
+      <header class="app-header">
+        <h1>C:U 상태이상 응급 매뉴얼</h1>
+        <p class="sub">Casualties: Unknown</p>
+      </header>
+      <input id="search" class="search" type="search"
+             placeholder="이름(한/영) 또는 증상으로 검색" autocomplete="off">
+      <p id="load-error" class="load-error">
+        상태이상 목록을 불러오지 못했습니다.<br>
+        <code>index.html</code>과 같은 폴더에 <code>data.js</code>, <code>app.js</code>가 있는지 확인하고,
+        파일 탐색기에서 <code>index.html</code>을 더블클릭해 브라우저(Chrome, Edge 등)로 열어주세요.
+      </p>
+      <div id="grid" class="grid"></div>
+      <p id="empty" class="empty" hidden>검색 결과가 없습니다.</p>
+    </section>
+
+    <!-- 상세 화면 -->
+    <section id="view-detail" class="view" hidden>
+      <button class="back" data-back>← 돌아가기</button>
+      <div id="detail"></div>
+    </section>
+
+    <!-- 치료 순서 화면 -->
+    <section id="view-order" class="view" hidden>
+      <button class="back" data-back>← 돌아가기</button>
+      <h2>치료 순서</h2>
+      <ol id="order" class="order"></ol>
+    </section>
+
+    <footer class="source">
+      참고: Scav Prototype Wiki (scavprototype.wiki.gg) · 비공식 팬 가이드
+    </footer>
+  </div>
+
+  <!-- 하단 고정 바 -->
+  <div id="bar" class="bar" hidden>
+    <button id="bar-open" class="bar-open"></button>
+    <button id="bar-clear" class="bar-clear">전체 해제</button>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
