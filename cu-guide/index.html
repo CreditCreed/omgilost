@@ -32,9 +32,17 @@
     <!-- 메인 화면 (찾기) -->
     <section id="view-main" class="view">
       <header class="app-header">
-        <h1>C:U 상태이상 응급 매뉴얼</h1>
-        <p class="sub">Casualties: Unknown</p>
+        <div>
+          <h1>C:U 상태이상 응급 매뉴얼</h1>
+          <p class="sub">Casualties: Unknown<span id="preset-name" class="preset-name"></span></p>
+        </div>
+        <div class="preset-btns">
+          <button id="preset-save" class="mini" title="지금 카드·우선순위 설정을 프리셋 파일로 저장">저장</button>
+          <button id="preset-load" class="mini" title="프리셋 파일(.json)을 불러와 적용">불러오기</button>
+          <input id="preset-file" type="file" accept=".json,application/json" hidden>
+        </div>
       </header>
+      <p id="preset-msg" class="preset-msg" role="status" hidden></p>
       <input id="search" class="search" type="search"
              placeholder="이름(한/영) 또는 증상으로 검색" autocomplete="off">
       <p class="guide">지금 걸린 상태이상을 눌러서 선택하면 치료 순서가 바로 나옵니다.</p>
@@ -49,11 +57,51 @@
       <div id="detail"></div>
     </section>
 
-    <!-- 치료 순서 화면 -->
-    <section id="view-order" class="view" hidden>
+    <!-- 편집: 우선순위 단계 + 카드 목록 -->
+    <section id="view-manage" class="view" hidden>
       <button class="back" data-back>← 돌아가기</button>
-      <h2>치료 순서</h2>
-      <ol id="order" class="order"></ol>
+      <h2>편집</h2>
+      <p class="muted small">바꾼 내용은 이 브라우저에만 저장됩니다. 사이트에 반영하려면 아래 "data.js 내보내기"로 받은 파일로 data.js 를 바꾸세요.</p>
+
+      <h3>우선순위 단계 <span class="hint">(위가 더 급함 · 1번부터 치료)</span></h3>
+      <ol id="level-list" class="level-list"></ol>
+      <button id="level-add" class="btn small-btn">+ 단계 추가</button>
+
+      <h3>카드</h3>
+      <ul id="card-list" class="card-list"></ul>
+      <button class="btn small-btn" data-new-card>+ 새 카드 추가</button>
+
+      <div class="manage-foot">
+        <button id="export" class="btn small-btn">data.js 내보내기</button>
+        <button id="reset-all" class="btn small-btn danger-btn" hidden>기본값으로 되돌리기</button>
+      </div>
+    </section>
+
+    <!-- 편집: 카드 추가/수정 -->
+    <section id="view-edit" class="view" hidden>
+      <button class="back" data-back>← 목록으로</button>
+      <h2 id="edit-title">새 카드 추가</h2>
+      <form id="edit-form" class="edit-form" autocomplete="off">
+        <label>한국어 이름 *<input name="nameKo" type="text" placeholder="예) 출혈"></label>
+        <label>영어 이름<input name="nameEn" type="text" placeholder="예) Bleeding"></label>
+        <fieldset class="stage-box">
+          <legend>게이지 단계 · 우선순위</legend>
+          <p class="hint">게이지가 몇 % 이상이면 어떤 단계가 되고, 그때 우선순위가 무엇인지 정합니다.
+            단계가 하나뿐이면 게이지 없이 항상 그 우선순위입니다.</p>
+          <ol id="stage-list" class="stage-list"></ol>
+          <button type="button" id="stage-add" class="btn small-btn">+ 단계 추가</button>
+        </fieldset>
+        <label>치료 순서에 보일 한 줄<input name="summary" type="text" placeholder="예) 붕대 감기 (심하면 지혈대 먼저)"></label>
+        <label>증상 <span class="hint">(한 줄에 하나)</span><textarea name="symptoms" rows="4"></textarea></label>
+        <label>치료법 <span class="hint">(한 줄에 하나)</span><textarea name="treatment" rows="4"></textarea></label>
+        <label>아이콘 경로 <span class="hint">(없으면 비워 두기)</span><input name="icon" type="text" placeholder="예) icons/bleeding.png"></label>
+        <p id="edit-error" class="form-error" role="alert"></p>
+        <div class="row-btns">
+          <button type="submit" class="btn on">저장</button>
+          <button type="button" id="edit-cancel" class="btn">취소</button>
+          <button type="button" id="edit-delete" class="btn danger-btn">삭제</button>
+        </div>
+      </form>
     </section>
 
     <footer class="source">
@@ -61,11 +109,8 @@
     </footer>
   </div>
 
-  <!-- 하단 고정 바 -->
-  <div id="bar" class="bar" hidden>
-    <button id="bar-open" class="bar-open"></button>
-    <button id="bar-clear" class="bar-clear">전체 해제</button>
-  </div>
+  <!-- 오른쪽 아래 편집 버튼 -->
+  <button id="fab" class="fab" title="카드·우선순위 편집" aria-label="카드와 우선순위 편집">+</button>
 
   <script src="data.js"></script>
   <script src="app.js"></script>
